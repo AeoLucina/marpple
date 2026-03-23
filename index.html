@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마플 클론 - 나만의 굿즈를 만들어보세요</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --black: #111;
+  --white: #fff;
+  --gray-50: #f9f9f9;
+  --gray-100: #f2f2f2;
+  --gray-200: #e5e5e5;
+  --gray-400: #aaa;
+  --gray-600: #666;
+  --gray-800: #333;
+  --accent: #ff4f00;
+  --accent-light: #fff2ed;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+body { font-family: 'Noto Sans KR', sans-serif; background: var(--white); color: var(--black); }
+a { text-decoration: none; color: inherit; }
+
+/* ── HEADER ── */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; gap: 24px;
+  padding: 0 24px; height: 64px;
+}
+.logo {
+  font-size: 22px; font-weight: 900; color: var(--black);
+  letter-spacing: -1px; white-space: nowrap;
+}
+.logo em { color: var(--accent); font-style: normal; }
+.gnb { display: flex; gap: 4px; flex: 1; }
+.gnb a {
+  padding: 8px 14px; font-size: 14px; font-weight: 500;
+  color: var(--gray-800); border-radius: 8px;
+  white-space: nowrap; transition: background 0.15s, color 0.15s;
+}
+.gnb a:hover, .gnb a.active { background: var(--gray-100); color: var(--black); font-weight: 700; }
+.header-right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.btn-outline {
+  padding: 8px 18px; border: 1.5px solid var(--gray-200);
+  border-radius: 8px; font-size: 13px; font-weight: 600;
+  color: var(--gray-800); background: var(--white);
+  cursor: pointer; white-space: nowrap; transition: border-color 0.15s;
+}
+.btn-outline:hover { border-color: var(--black); }
+.btn-fill {
+  padding: 8px 18px; border: none;
+  background: var(--black); color: var(--white);
+  border-radius: 8px; font-size: 13px; font-weight: 700;
+  cursor: pointer; white-space: nowrap; transition: background 0.15s;
+}
+.btn-fill:hover { background: #333; }
+.btn-accent {
+  padding: 8px 18px; border: none;
+  background: var(--accent); color: var(--white);
+  border-radius: 8px; font-size: 13px; font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--black);
+  min-height: 500px;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, #2a1500 0%, #111 60%);
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1; width: 100%;
+}
+.hero-text { max-width: 520px; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,79,0,0.18); color: var(--accent);
+  border: 1px solid rgba(255,79,0,0.3);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 700; margin-bottom: 20px;
+}
+.hero-title {
+  font-size: 48px; font-weight: 900; color: var(--white);
+  line-height: 1.15; margin-bottom: 16px; letter-spacing: -1.5px;
+}
+.hero-title em { color: var(--accent); font-style: normal; }
+.hero-desc { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 12px; }
+.hero-cta-primary {
+  padding: 14px 28px; background: var(--accent); color: var(--white);
+  border: none; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: transform 0.15s;
+}
+.hero-cta-primary:hover { transform: translateY(-1px); }
+.hero-cta-secondary {
+  padding: 14px 28px; background: rgba(255,255,255,0.08); color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+}
+.hero-visual {
+  display: grid; grid-template-columns: repeat(2, 130px); gap: 10px;
+  flex-shrink: 0;
+}
+.hero-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 18px; text-align: center;
+  color: white;
+}
+.hero-card .icon { font-size: 36px; display: block; margin-bottom: 8px; }
+.hero-card .label { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+/* ── STEP SECTION ── */
+.steps-section { background: var(--gray-50); padding: 64px 24px; }
+.steps-inner { max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.section-title { font-size: 30px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 48px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.step-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 32px; border: 1px solid var(--gray-200);
+  position: relative; transition: box-shadow 0.2s;
+}
+.step-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+.step-num {
+  position: absolute; top: 24px; right: 24px;
+  font-size: 48px; font-weight: 900; color: var(--gray-100);
+  line-height: 1; letter-spacing: -2px;
+}
+.step-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+.step-title { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+.step-desc { font-size: 14px; color: var(--gray-600); line-height: 1.7; }
+
+/* ── PRODUCT SHOWCASE ── */
+.products-section { padding: 64px 24px; }
+.products-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+.see-all-link { font-size: 13px; font-weight: 600; color: var(--gray-600); border-bottom: 1px solid var(--gray-400); padding-bottom: 1px; }
+.see-all-link:hover { color: var(--black); border-color: var(--black); }
+
+/* Category tabs */
+.cat-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.cat-tab {
+  padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--gray-200); color: var(--gray-600);
+  cursor: pointer; background: var(--white); transition: all 0.15s;
+}
+.cat-tab:hover, .cat-tab.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.product-card {
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--gray-200);
+  cursor: pointer; transition: box-shadow 0.2s, transform 0.2s;
+  display: block;
+}
+.product-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-2px); }
+.product-thumb {
+  width: 100%; aspect-ratio: 1;
+  background: var(--gray-100);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px; position: relative; overflow: hidden;
+}
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.product-thumb .badge {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--accent); color: white;
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+}
+.product-info { padding: 14px; }
+.product-category { font-size: 11px; color: var(--gray-400); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.product-name { font-size: 14px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.product-price { font-size: 15px; font-weight: 900; }
+.product-price .from { font-size: 11px; font-weight: 400; color: var(--gray-400); margin-right: 3px; }
+
+/* ── BANNER ── */
+.banner-section { padding: 0 24px 64px; }
+.banner-inner { max-width: 1200px; margin: 0 auto; }
+.banner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.banner-card {
+  border-radius: var(--radius); padding: 40px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 200px; cursor: pointer; transition: transform 0.2s;
+}
+.banner-card:hover { transform: translateY(-2px); }
+.banner-card.dark { background: var(--black); color: var(--white); }
+.banner-card.orange { background: var(--accent); color: var(--white); }
+.banner-label { font-size: 11px; font-weight: 700; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.banner-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.3; }
+.banner-cta { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; margin-top: 24px; }
+.banner-emoji { font-size: 52px; position: absolute; right: 32px; bottom: 24px; }
+.banner-card { position: relative; overflow: hidden; }
+
+/* ── REVIEW SECTION ── */
+.review-section { background: var(--gray-50); padding: 64px 24px; }
+.review-inner { max-width: 1200px; margin: 0 auto; }
+.review-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+.review-scroll::-webkit-scrollbar { display: none; }
+.review-card {
+  min-width: 260px; background: var(--white);
+  border-radius: var(--radius); padding: 20px;
+  border: 1px solid var(--gray-200); flex-shrink: 0;
+}
+.review-thumb {
+  width: 100%; height: 160px; background: var(--gray-100);
+  border-radius: var(--radius-sm); margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; overflow: hidden;
+}
+.review-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.review-stars { color: #fbbf24; font-size: 13px; margin-bottom: 6px; }
+.review-text { font-size: 13px; color: var(--gray-800); line-height: 1.6; margin-bottom: 10px; }
+.review-user { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+.review-product { font-size: 11px; color: var(--gray-600); margin-top: 2px; }
+
+/* ── STATS ── */
+.stats-section { padding: 64px 24px; }
+.stats-inner { max-width: 1200px; margin: 0 auto; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-200); border-radius: var(--radius); overflow: hidden; }
+.stat-item { background: var(--white); padding: 36px 24px; text-align: center; }
+.stat-num { font-size: 36px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
+.stat-num em { color: var(--accent); font-style: normal; }
+.stat-label { font-size: 13px; color: var(--gray-600); font-weight: 500; }
+
+/* ── FOOTER ── */
+footer { background: #1a1a1a; color: var(--white); padding: 48px 24px 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: flex; gap: 64px; margin-bottom: 40px; }
+.footer-logo { font-size: 20px; font-weight: 900; margin-bottom: 12px; }
+.footer-logo em { color: var(--accent); font-style: normal; }
+.footer-desc { font-size: 12px; color: #666; line-height: 1.7; max-width: 200px; }
+.footer-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 14px; color: #aaa; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { font-size: 13px; color: #666; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 20px; font-size: 11px; color: #444; }
+
+/* ── RESPONSIVE ── */
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">mar<em>pple</em></a>
+    <nav class="gnb">
+      <a href="#" class="active">커스텀 굿즈</a>
+      <a href="#">단체 주문</a>
+      <a href="#">기업 굿즈</a>
+      <a href="#">마플샵</a>
+      <a href="#">리뷰</a>
+    </nav>
+    <div class="header-right">
+      <button class="btn-outline">로그인</button>
+      <button class="btn-fill">회원가입</button>
+      <a href="product.html"><button class="btn-accent">굿즈 만들기</button></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">✦ 커스텀 굿즈 플랫폼 No.1</div>
+      <h1 class="hero-title">세상에 단 하나,<br><em>나만의 굿즈</em>를<br>3분 만에</h1>
+      <p class="hero-desc">티셔츠, 폰케이스, 텀블러, 키링까지<br>원하는 디자인으로 1개부터 주문 가능해요.</p>
+      <div class="hero-actions">
+        <a href="product.html"><button class="hero-cta-primary">지금 만들어보기 →</button></a>
+        <button class="hero-cta-secondary">리뷰 보기</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card"><span class="icon">👕</span><span class="label">티셔츠</span></div>
+      <div class="hero-card"><span class="icon">📱</span><span class="label">폰케이스</span></div>
+      <div class="hero-card"><span class="icon">☕</span><span class="label">텀블러</span></div>
+      <div class="hero-card"><span class="icon">🗝️</span><span class="label">키링</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="steps-inner">
+    <div class="section-label">HOW IT WORKS</div>
+    <h2 class="section-title">딱 3단계면 충분해요</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <span class="step-icon">🎁</span>
+        <h3 class="step-title">상품 선택</h3>
+        <p class="step-desc">티셔츠, 폰케이스, 에코백, 머그컵 등 2,000가지 이상의 상품 중에서 원하는 걸 골라보세요.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <span class="step-icon">🖌️</span>
+        <h3 class="step-title">디자인 편집</h3>
+        <p class="step-desc">이미지 업로드 또는 무료 디자인 소스로 나만의 디자인을 완성하세요. 실시간으로 미리보기 가능!</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <span class="step-icon">📦</span>
+        <h3 class="step-title">주문 & 수령</h3>
+        <p class="step-desc">1개부터 대량 주문까지 OK. 빠른 제작과 안전 포장으로 문 앞까지 배송해드려요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="products-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">POPULAR ITEMS</div>
+        <h2 class="section-title" style="margin-bottom:0">인기 상품</h2>
+      </div>
+      <a class="see-all-link" href="#">전체보기</a>
+    </div>
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="filterCat(this,'all')">전체</button>
+      <button class="cat-tab" onclick="filterCat(this,'wear')">의류</button>
+      <button class="cat-tab" onclick="filterCat(this,'phone')">폰케이스</button>
+      <button class="cat-tab" onclick="filterCat(this,'home')">홈/생활</button>
+      <button class="cat-tab" onclick="filterCat(this,'acc')">액세서리</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- BANNERS -->
+<section class="banner-section">
+  <div class="banner-inner">
+    <div class="banner-grid">
+      <div class="banner-card dark">
+        <div>
+          <div class="banner-label">GROUP ORDER</div>
+          <div class="banner-title">단체 티셔츠,<br>5장부터 할인 시작</div>
+          <div class="banner-cta">견적 받기 →</div>
+        </div>
+        <span class="banner-emoji">👥</span>
+      </div>
+      <div class="banner-card orange">
+        <div>
+          <div class="banner-label">CORPORATE GIFT</div>
+          <div class="banner-title">기업 굿즈 패키지<br>전담 매니저 배정</div>
+          <div class="banner-cta">문의하기 →</div>
+        </div>
+        <span class="banner-emoji">🎁</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="review-section">
+  <div class="review-inner">
+    <div class="section-header" style="margin-bottom:28px">
+      <div>
+        <div class="section-label">REAL REVIEWS</div>
+        <h2 class="section-title" style="margin-bottom:0">실제 구매 후기</h2>
+      </div>
+      <a class="see-all-link" href="#">전체보기</a>
+    </div>
+    <div class="review-scroll" id="reviewScroll"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-num">2,000<em>+</em></div><div class="stat-label">굿즈 종류</div></div>
+      <div class="stat-item"><div class="stat-num">130,000<em>+</em></div><div class="stat-label">리뷰 수</div></div>
+      <div class="stat-item"><div class="stat-num">4.95<em>★</em></div><div class="stat-label">평균 평점</div></div>
+      <div class="stat-item"><div class="stat-num">60<em>%+</em></div><div class="stat-label">재구매율</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">mar<em>pple</em></div>
+        <div class="footer-desc">세상에 단 하나뿐인 나만의 굿즈를 만들어드립니다. (학습/포트폴리오 클론)</div>
+      </div>
+      <div class="footer-col">
+        <h4>서비스</h4>
+        <ul>
+          <li><a href="#">커스텀 굿즈</a></li>
+          <li><a href="#">단체 주문</a></li>
+          <li><a href="#">기업 굿즈</a></li>
+          <li><a href="#">마플샵</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>고객지원</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">자주 묻는 질문</a></li>
+          <li><a href="#">1:1 문의</a></li>
+          <li><a href="#">배송 조회</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>회사</h4>
+        <ul>
+          <li><a href="#">마플 소개</a></li>
+          <li><a href="#">채용</a></li>
+          <li><a href="#">개인정보처리방침</a></li>
+          <li><a href="#">이용약관</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Marpple Clone Project. 학습/포트폴리오 목적으로 제작된 UI 클론입니다. 실제 마플의 데이터 및 자산은 포함되어 있지 않습니다.
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRODUCTS = [
+  { img:'images/tshirt.png', cat:'wear', category:'의류', name:'커스텀 반팔 티셔츠', price:19900, badge:'BEST' },
+  { img:'images/fold7.png', cat:'phone', category:'폰케이스', name:'갤럭시 폴드7 하드케이스', price:16900, badge:'NEW' },
+  { img:'images/ecobag.png', cat:'home', category:'에코백', name:'캔버스 에코백 커스텀', price:11900, badge:'NEW' },
+  { img:'images/keyring.png', cat:'acc', category:'액세서리', name:'아크릴 키링 양면인쇄', price:7900, badge:null },
+  { img:'images/mug.png', cat:'home', category:'홈/생활', name:'커스텀 머그컵 320ml', price:12900, badge:null },
+  { img:'images/hoodie.png', cat:'wear', category:'의류', name:'커스텀 후드집업', price:39900, badge:'BEST' },
+  { img:'images/sticker.png', cat:'acc', category:'액세서리', name:'스티커 패키지 커스텀', price:4900, badge:null },
+  { img:'images/cap.png', cat:'wear', category:'의류', name:'볼캡 자수 커스텀', price:22900, badge:'NEW' },
+];
+
+const REVIEWS = [
+  { img:'images/review_tshirt.png', product:'커스텀 반팔 티셔츠', text:'생각보다 훨씬 퀄리티가 좋아요! 색감도 선명하고 세탁해도 안 빠져요.', user:'j***n', stars:5 },
+  { img:'images/review_fold7.png', product:'갤럭시 폴드7 하드케이스', text:'디자인 그대로 예쁘게 나왔어요. 친구한테 선물했는데 너무 좋아했어요 :)', user:'s***y', stars:5 },
+  { img:'images/review_keyring.png', product:'아크릴 키링', text:'가방에 달고 다니는데 완전 귀여워요. 양면 인쇄도 선명하고 퀄 최고!', user:'m***e', stars:5 },
+  { img:'images/review_ecobag.png', product:'캔버스 에코백', text:'두껍고 튼튼해요. 회사 단체 주문했는데 다들 만족했습니다.', user:'k***2', stars:4 },
+  { img:'images/review_mug.png', product:'커스텀 머그컵', text:'엄마 생신 선물로 만들었는데 너무 좋아하셨어요. 재구매 예정!', user:'h***j', stars:5 },
+];
+
+function renderProducts(cat) {
+  const filtered = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+  document.getElementById('productGrid').innerHTML = filtered.map(p => `
+    <a class="product-card" href="product.html">
+      <div class="product-thumb">
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        <img src="${p.img}" alt="${p.name}">
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">${p.price.toLocaleString()}원</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function filterCat(el, cat) {
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts(cat);
+}
+
+document.getElementById('reviewScroll').innerHTML = REVIEWS.map(r => `
+  <div class="review-card">
+    <div class="review-thumb"><img src="${r.img}" alt="${r.product}"></div>
+    <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+    <div class="review-text">${r.text}</div>
+    <div class="review-user">${r.user}</div>
+    <div class="review-product">${r.product}</div>
+  </div>
+`).join('');
+
+renderProducts('all');
+</script>
+</body>
+</html>
